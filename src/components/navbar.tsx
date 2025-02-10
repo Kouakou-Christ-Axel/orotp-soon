@@ -1,4 +1,4 @@
-import LogoSrc from "../../public/logo.png";
+import LogoSrc from "../assets/logo.png";
 import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
 import {motion} from "motion/react";
 

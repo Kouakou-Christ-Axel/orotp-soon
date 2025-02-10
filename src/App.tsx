@@ -1,10 +1,12 @@
 import "./index.css"
-import BestPlaceSvg from "../public/under-construction.svg"
+import underConstruction from "./assets/under-construction.svg"
 import {motion} from "motion/react"
 import {IoMdSend} from "react-icons/io";
 import Navbar from "./components/navbar.tsx";
-import {useState} from "react";
 import * as React from "react";
+import {useState} from "react";
+import Bulldozer from "./components/illustrations/bulldozer.tsx";
+import Trucks from "./components/illustrations/trucks.tsx";
 
 function App() {
     const [email, setEmail] = useState("");
@@ -14,12 +16,15 @@ function App() {
     };
     return (
         <>
-            <div className="relative overflow-hidden flex flex-col min-h-screen container mx-auto w-full">
+            <div className="overflow-hidden flex flex-col min-h-screen container mx-auto w-full">
                 <Navbar/>
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-primary-100/20 -z-10">
+                <div
+                    className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-primary-100/50 -z-10">
                 </div>
-                <div className="flex-1 flex flex-col text-center lg:text-left gap-8 lg:flex-row max-lg:justify-center items-center justify-between px-4 md:px-8 lg:px-16">
-                    <div className="flex flex-col items-center lg:items-start">
+                <div
+                    className="flex-1 flex flex-col text-center lg:text-left gap-8 lg:flex-row max-lg:justify-center items-center justify-between px-4 md:px-8 lg:px-16">
+                    <div className="relative flex flex-col items-center lg:items-start">
+                        <BackgroundIllustration/>
                         <motion.h1
                             initial={{opacity: 0, y: -20}}
                             animate={{opacity: 1, y: 0}}
@@ -66,7 +71,7 @@ function App() {
                             initial={{opacity: 0, y: 20}}
                             animate={{opacity: 1, y: 0}}
                             transition={{duration: 0.5, delay: 0.8}}
-                            src={BestPlaceSvg}
+                            src={underConstruction}
                             alt="Best Place"
                             className="h-[250px] lg:h-[450px]"
                         />
@@ -74,6 +79,28 @@ function App() {
                 </div>
             </div>
         </>
+    )
+}
+
+function BackgroundIllustration() {
+    return (
+        <motion.div
+            className="absolute inset-0"
+            initial={{opacity: 0}}
+            animate={{opacity: 0.6}}
+            transition={{duration: 2, delay: 0.8}}
+        >
+            <motion.div className="absolute bottom-1/2 right-1/2 animate-float">
+                <Bulldozer
+                    className="text-primary-600 size-8"
+                />
+            </motion.div>
+            <motion.div className="absolute -top-10 right-1/3 animate-float delay-200">
+                <Trucks
+                    className="text-primary-600 size-8"
+                />
+            </motion.div>
+        </motion.div>
     )
 }
 
