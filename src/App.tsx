@@ -4,19 +4,39 @@ import {motion} from "motion/react"
 import {IoMdSend} from "react-icons/io";
 import Navbar from "./components/navbar.tsx";
 import * as React from "react";
-import {useState} from "react";
 import Bulldozer from "./components/illustrations/bulldozer.tsx";
 import Trucks from "./components/illustrations/trucks.tsx";
+import emailjs from '@emailjs/browser'
+import toast, {Toaster} from 'react-hot-toast';
 
 function App() {
-    const [email, setEmail] = useState("");
+    const form = React.useRef<HTMLFormElement>(null);
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    };
+    function sendMailForm(e: React.FormEvent) {
+        e.preventDefault();
+        if (form.current) {
+            toast
+                .promise(
+                    emailjs
+                        .sendForm('service_5t75ehn', 'template_pnbkqcg', form.current, {
+                            publicKey: 'Jn6xT_etEBDUCJVYo'
+                        }),
+                    {
+                        loading: 'Envoi en cours...',
+                        success: 'Email envoyé !',
+                        error: 'Une erreur est survenue, veuillez réessayer plus tard.',
+                    }
+                )
+                .then(() => {
+                    form.current?.reset()
+                })
+        }
+    }
+
     return (
         <>
             <div className="overflow-hidden flex flex-col min-h-screen container mx-auto w-full">
+                <Toaster/>
                 <Navbar/>
                 <div
                     className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-primary-100/50 -z-10">
@@ -43,15 +63,16 @@ function App() {
                             Nous travaillons d’arrache-pied pour vous offrir l’excellence et l’innovation au service de
                             vos projets futurs. 🛠️✨
                         </motion.p>
-                        <motion.div
+                        <motion.form
+                            ref={form}
+                            onSubmit={sendMailForm}
                             initial={{opacity: 0, y: -20}}
                             animate={{opacity: 1, y: 0}}
                             transition={{duration: 0.5, delay: 0.8}}
                             className="flex items-center justify-center mt-8 max-w-sm w-full"
                         >
                             <input
-                                value={email}
-                                onChange={handleInputChange}
+                                name={"email"}
                                 type="email"
                                 autoComplete={"email"}
                                 placeholder="Votre adresse email"
@@ -64,7 +85,7 @@ function App() {
                             >
                                 <IoMdSend className="size-6"/>
                             </motion.button>
-                        </motion.div>
+                        </motion.form>
                     </div>
                     <div className="hidden md:block">
                         <motion.img
@@ -85,7 +106,7 @@ function App() {
 function BackgroundIllustration() {
     return (
         <motion.div
-            className="absolute inset-0"
+            className="absolute inset-0 -z-10"
             initial={{opacity: 0}}
             animate={{opacity: 0.6}}
             transition={{duration: 2, delay: 0.8}}
@@ -95,7 +116,7 @@ function BackgroundIllustration() {
                     className="text-primary-600 size-8"
                 />
             </motion.div>
-            <motion.div className="absolute -top-10 right-1/3 animate-float delay-200">
+            <motion.div className="absolute -top-10 left-8 animate-float delay-200">
                 <Trucks
                     className="text-primary-600 size-8"
                 />
