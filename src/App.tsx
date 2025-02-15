@@ -18,8 +18,8 @@ function App() {
             toast
                 .promise(
                     emailjs
-                        .sendForm('service_5t75ehn', 'template_pnbkqcg', form.current, {
-                            publicKey: 'Jn6xT_etEBDUCJVYo'
+                        .sendForm('service_7bkvdk4', 'template_r5yof0l', form.current, {
+                            publicKey: 'K9HwX7T3lqaq1AAoU'
                         }),
                     {
                         loading: 'Envoi en cours...',

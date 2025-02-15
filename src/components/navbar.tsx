@@ -1,6 +1,7 @@
 import LogoSrc from "../assets/logo.png";
 import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
 import {motion} from "motion/react";
+import {IconType} from "react-icons";
 
 const itemVariants = {
     hidden: {opacity: 0, x: -40},
@@ -12,6 +13,12 @@ const itemVariants = {
         },
     }),
 };
+
+const socialLinks = [
+    {Icon: FaFacebook, href: "#"},
+    {Icon: FaTwitter, href: "#"},
+    {Icon: FaInstagram, href: "#"},
+];
 
 function Navbar() {
     return (
@@ -27,22 +34,25 @@ function Navbar() {
                 <img src={LogoSrc} alt="Logo" className="h-14"/>
             </motion.a>
             <div className="flex items-center space-x-4">
-                {[FaFacebook, FaTwitter, FaInstagram].map((Icon, index) => (
-                    <motion.a
-                        key={index}
-                        initial="hidden"
-                        animate="visible"
-                        custom={index + 1}
-                        variants={itemVariants}
-                        whileHover={{scale: 1.2, color:"var(--color-primary)"}}
-                        whileTap={{scale: 0.8}}
-                        href="#"
-                    >
-                        <Icon className="size-5"/>
-                    </motion.a>
+                {socialLinks.map(({Icon, href}, i) => (
+                    <SocialButton key={i} Icon={Icon} href={href}/>
                 ))}
             </div>
         </header>
+    );
+}
+
+function SocialButton({Icon, href}: {Icon: IconType; href: string}) {
+    return (
+        <motion.a
+            whileHover={{scale: 1.2, color: "var(--color-primary)"}}
+            whileTap={{scale: 0.8}}
+            href={href}
+            target={"_blank"}
+            rel={"noreferrer"}
+        >
+            <Icon className="size-5"/>
+        </motion.a>
     );
 }
 
