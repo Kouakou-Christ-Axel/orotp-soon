@@ -3,6 +3,7 @@ import {FaFacebook, FaInstagram, FaTwitter} from "react-icons/fa6";
 import {motion} from "motion/react";
 import {IconType} from "react-icons";
 import {MdEmail, MdPhone} from "react-icons/md";
+import Tooltip from "./tooltip.tsx";
 
 const itemVariants = {
     hidden: {opacity: 0, x: -40},
@@ -38,23 +39,32 @@ function Navbar() {
                 {socialLinks.map(({Icon, href}, i) => (
                     <SocialButton key={i} Icon={Icon} href={href}/>
                 ))}
-                <motion.a
-                    className="transition-colors duration-300 hover:bg-[#f0f0f5] hover:text-[#18171a] text-secondary px-4 py-2 rounded-full md:flex items-center md:space-x-2"
-                    href="tel:+2252722241405"
+                <Tooltip
+                    content="+225 27 22 24 14 05"
+                    className="text-nowrap"
                 >
-                    <MdPhone className="size-5"/>
-                    <span className="hidden md:inline text-sm">Tel</span>
-                </motion.a>
-                <motion.a
-                    className="ring-1 ring-primary text-primary px-4 py-2 rounded-full md:flex items-center md:space-x-2"
-                    href="mailto:contact@orotp.com"
-                    whileHover={{scale: 1.05}}
-                    whileTap={{scale: 0.9}}
-                    transition={{duration: 0.3}}
+                    <motion.a
+                        className="transition-colors duration-300 hover:bg-[#f0f0f5] hover:text-[#18171a] text-secondary px-4 py-2 rounded-full md:flex items-center md:space-x-2"
+                        href="tel:+2252722241405"
+                    >
+                        <MdPhone className="size-5"/>
+                        <span className="hidden md:inline text-sm">Tel</span>
+                    </motion.a>
+                </Tooltip>
+                <Tooltip
+                    content="contact@orotp.com"
                 >
-                    <MdEmail className="size-5"/>
-                    <span className="hidden md:inline text-sm">Email</span>
-                </motion.a>
+                    <motion.a
+                        className="ring-1 ring-primary text-primary px-4 py-2 rounded-full md:flex items-center md:space-x-2"
+                        href="mailto:contact@orotp.com"
+                        whileHover={{scale: 1.05}}
+                        whileTap={{scale: 0.9}}
+                        transition={{duration: 0.3}}
+                    >
+                        <MdEmail className="size-5"/>
+                        <span className="hidden md:inline text-sm">Email</span>
+                    </motion.a>
+                </Tooltip>
             </div>
         </header>
     );
