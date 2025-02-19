@@ -18,7 +18,7 @@ const Tooltip: React.FC<TooltipProps> = ({children, content, direction = 'bottom
             {children}
             {visible && (
                 <div
-                    className={`absolute z-10 p-2 text-sm bg-black text-white rounded text-sm ${getTooltipPosition(direction)} ${className}`}>
+                    className={`absolute z-10 p-2 text-sm bg-black text-white rounded ${getTooltipPosition(direction)} ${className}`}>
                     {content}
                 </div>
             )}
